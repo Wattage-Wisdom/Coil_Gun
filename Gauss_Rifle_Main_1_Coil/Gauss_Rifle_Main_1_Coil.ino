@@ -147,46 +147,6 @@ while(fire_state == true){
     
     //End of firing state for 1 coil
     
-    /*
-    //Waiting for projectile to reach coil 2
-    case coil_2_fire:
-    while(coil_2_IR_state == false){
-    //no code executed here, designed to hold processor inside this while loop waiting for projectile to reach coil 2 IR and trigger state
-    //Code added to make sure weapon cycles through full firing cycle and does not get stuck
-    if( timerRead(firing_timer) >= 10000){
-      emergency_state = true; //if it has been 10 seconds between initial fire and projectile reaching coil 2 enter emergency state and break loop
-      break;
-    }
-    }
-    //Pojectile reached coil 2, turn off coil 2 and turn coil 3 on
-    digitalWrite(coil_2_SCR_realy, LOW);
-    digitalWrite(coil_3_SCR_realy, HIGH);
-    coil_2_IR_state = false;
-    firing_state = coil_3_fire;
-    timerRestart(firing_timer);
-    break; //break coil 2 fire state
-
-    case coil_3_fire:
-    while(coil_3_IR_state == false){
-    //no code executed here, designed to hold processor inside this while loop waiting for projectile to reach coil 3 IR and trigger state
-    //Code added to make sure weapon cycles through full firing cycle and does not get stuck
-    if( timerRead(firing_timer) >= 10000){
-      emergency_state = true; //if it has been 10 seconds between initial fire and projectile reaching coil 3 enter emergency state and break loop
-      break;
-    }
-    }
-    //Projectile reached coil 3, shutoff coil 3 and reset firing state
-    digitalWrite(coil_3_SCR_relay, LOW);
-    coil_3_IR_state = false;
-    firing_state = pre_fire;
-    timerStop(firing_timer);
-    timerRestart(firing_timer);
-    //CHANGE THIS TO SOMETHING BECAUSE YOU NEED TO LOAD THE WEAPON
-    delay(3000); //there is a 3 second gap to give the operator time to release the trigger otherwise after those 3 seconds the weapon will fire again
-    fire_state = false;
-    break; //break coil 3 fire state
-   */
-
   }//End of switch
   
  }//End of firing state
