@@ -77,14 +77,14 @@ void loop() {
     //If initial charge or Capacitors below 200V both sides of hv charge relay are at 0V (or lower than halfway threshold volts) so close this relay first
   if(digitalRead(initial_charge_switch) == HIGH && digitalRead(discharge_switch) == LOW && warning_state == false && emergency_state == false){
     digitalWrite(hv_charging_relay, HIGH);
-    delay(1000); //time to let the hv relay close before turning on the high voltage circuit
+    delay(2000); //time to let the hv relay close before turning on the high voltage circuit
     digitalWrite(boost_xf_relay, HIGH);
   }
 
   //If not initial charge or Capacitors above 200V turn on boost xf first so hv charge relay has less potential difference when it closes
   else if(digitalRead(initial_charge_switch) == LOW && digitalRead(discharge_switch) == LOW && warning_state == false && emergency_state == false){
     digitalWrite(boost_xf_relay, HIGH);
-    delay(3000);//delay for slightly longer so boost xf has time to power up and output 400V
+    delay(5000);//delay for slightly longer so boost xf has time to power up and output 400V
     digitalWrite(hv_charging_relay, HIGH);
   }
   
@@ -97,7 +97,7 @@ void loop() {
 
   //Now that relays have been closed in the proper order the charging can commence
   if(warning_state == false && emergency_state == false){
-    delay(10000); //RC circuit time constant is XXXXX and so circuit will charge for XXXXX or XXXX time constants
+    delay(15000); //RC circuit time constant is 3 seconds and so circuit will charge for 15 seconds or 5 time constants
     digitalWrite(hv_charging_relay, LOW);
     delay(2000); //time for hv relay to disconnect before turning high voltage circuit side off to 0V
     digitalWrite(boost_xf_relay, LOW);
@@ -112,7 +112,7 @@ void loop() {
 //Dischage swithc has been flipped, discharge the capacitors
 while(discharging_state == true && digitalRead(hv_charging_relay) == LOW && digitalRead(boost_xf_relay) == LOW && fire_state == false){
   digitalWrite(discharging_relay, HIGH);
-  delay(60000);//wait ample time for the capacitors to discharge safely
+  delay(60000);//RC discharging circuit time constant is 10 seconds, wait ample time (6 TC) for the capacitors to discharge safely
   digitalWrite(discharging_relay, LOW);
   discharging_state = false;
   charging_state = false; //turn off all other states in case triggered during the disharging process
